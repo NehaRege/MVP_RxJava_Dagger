@@ -26,7 +26,6 @@ public class NetworkClient {
             });
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(interceptor)
                     .build();
@@ -37,17 +36,6 @@ public class NetworkClient {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .client(okHttpClient)
                     .build();
-
-//            OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//            OkHttpClient okHttpClient = builder.build();
-//
-//            retrofit = new Retrofit.Builder()
-//                    .baseUrl(Constants.VIMEO_BASE_URL)
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                    .client(okHttpClient)
-//                    .build();
-
         }
 
         return retrofit;
