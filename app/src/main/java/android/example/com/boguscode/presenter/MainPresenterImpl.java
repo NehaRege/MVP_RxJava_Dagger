@@ -1,7 +1,6 @@
 package android.example.com.boguscode.presenter;
 
 import android.example.com.boguscode.data.DataManager;
-import android.example.com.boguscode.data.DataManagerImpl;
 import android.example.com.boguscode.view.MainView;
 import android.util.Log;
 
@@ -9,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -26,18 +27,18 @@ public class MainPresenterImpl implements MainPresenter {
     private ArrayList<JSONObject> mVideosFromRetrofit = new ArrayList<>();
     private final PublishSubject<Object> retrySubject = PublishSubject.create();
 
-    public MainPresenterImpl(MainView mainView) {
-        mMainView = mainView;
-        mDataManager = new DataManagerImpl(this);
-    }
+//    public MainPresenterImpl(MainView mainView) {
+//        mMainView = mainView;
+//        mDataManager = new DataManagerImpl();
+//    }
 
     /**
-     *
      * This is for Dagger
      *
      * @param mainView
      * @param dataManager
      */
+    @Inject
     public MainPresenterImpl(MainView mainView, DataManager dataManager) {
         mMainView = mainView;
         mDataManager = dataManager;

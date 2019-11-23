@@ -1,8 +1,7 @@
 package android.example.com.boguscode.data;
 
-import android.example.com.boguscode.Constants;
-import android.example.com.boguscode.api.ApiNetworkService;
-import android.example.com.boguscode.api.NetworkClient;
+import android.example.com.boguscode.utils.Constants;
+import android.example.com.boguscode.api.retrofit.ApiNetworkService;
 import android.example.com.boguscode.presenter.MainPresenter;
 import android.util.Log;
 
@@ -10,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -28,6 +29,13 @@ public class DataManagerImpl implements DataManager {
         mPresenter = presenter;
     }
 
+    private ApiNetworkService mApiNetworkService;
+
+    @Inject
+    public DataManagerImpl(ApiNetworkService apiNetworkService) {
+        mApiNetworkService = apiNetworkService;
+    }
+
     @Override
     public Observable<ResponseBody> getVideoList() {
         Log.d(TAG, "getVideoList: ");
@@ -36,11 +44,17 @@ public class DataManagerImpl implements DataManager {
     }
 
     public Observable<ResponseBody> getObservable() {
-        return NetworkClient.getRetrofit()
-                .create(ApiNetworkService.class)
+        return mApiNetworkService
                 .getVideoList(Constants.API_TOKEN)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+
+
+//        return NetworkClient.getRetrofit()
+//                .create(ApiNetworkService.class)
+//                .getVideoList(Constants.API_TOKEN)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**

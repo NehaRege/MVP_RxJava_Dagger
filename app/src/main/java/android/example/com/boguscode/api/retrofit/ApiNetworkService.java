@@ -1,4 +1,4 @@
-package android.example.com.boguscode.api;
+package android.example.com.boguscode.api.retrofit;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
